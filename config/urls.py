@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from rest_framework_jwt.views import obtain_jwt_token
+from tedygram import views
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -41,6 +42,10 @@ urlpatterns = [
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
+
+urlpatterns = [
+    path("", views.ReactAppView.as_view()), # catch-all : 매칭되지 않은 모든 url을 모은다.
+]
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
